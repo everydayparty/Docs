@@ -55,3 +55,9 @@ samba 설정
 - 파이어월 열기
 -- firewall-cmd --permanent --zone=public --add-service=samba
 
+급 작성을 끝내며
+------
+이 이후에 nginx 설치, phusion passenger+redmine 설치 연동, git 관련설정, uwsgi를 이용한 django 개발환경 꾸미기 등을 하였으나..
+docker관련된 내용 보면서 아.. 이건 삽질이었구나 깨닫게 되어서 이만 문서 작성을 중지할까 한다.
+이후에 문서는 추가된다면 docker를 이용한 개발 환경설정이 될 것으로 보인다.
+
