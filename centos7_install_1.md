@@ -24,19 +24,19 @@ CentOS 7 개발서버 설치
 
 samba 설정
 ------------
-- 패키지설치
+## 패키지설치
     yum install samba samba-client samba-common samba-server nmb
-- 유저및 폴더추가
+## 유저및 폴더추가
     adduser user
     passwd user
     mkdir /home/dev/smbshare
     chown dev. /home/dev/smbshare
     chmod 777 /home/dev/smbshare
-- /etc/samba/smb.conf 변경
--- [homes] 관련 주석처리, printer 관련 주석처리
--- workgroup = WORKGROUP
--- load printers = no
--- share 편집
+## /etc/samba/smb.conf 변경
+    # [homes] 섹션 주석처리, printer 섹션 주석처리함
+    # workgroup = WORKGROUP
+    load printers = no
+    # share 편집
     [share]
     comment = Default Folder
     path = /home/dev/smbshare
@@ -49,11 +49,11 @@ samba 설정
     write list = dev
     create mask = 0664
     directory mask = 0775
-- 서비스 자동시작 설정
--- systemctl enable smb
--- systemctl enable nmb
-- 파이어월 열기
--- firewall-cmd --permanent --zone=public --add-service=samba
+## 서비스 자동시작 설정
+    systemctl enable smb
+    systemctl enable nmb
+## 파이어월 열기
+    firewall-cmd --permanent --zone=public --add-service=samba
 
 급 작성을 끝내며
 ------
