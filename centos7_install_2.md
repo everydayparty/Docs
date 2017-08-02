@@ -11,6 +11,7 @@ Docker를 사용하여 개발에 필요한 설정을 하려고 했다.
 어차피 지금은 소스보기와 리서치 작업 정도만 할꺼라서 로컬 볼륨에 마운트 안하고 그냥 진행해도 되지만 일단 나중을 위해서 CentOS 기반으로 작업 관련 설치를 진행할까 한다.  
 처음엔 도커 이미지 기반으로 설치하려고 했으나 시스템상 맞지 않는 부분이 있어서 계획을 변경하여 리눅스 가상머신에 centos 설치하고 진행하기로 했다.  
 웹서버, PHP, Laravel, MySQL, October CMS 등을 설치예정이다.  
+root계정으로 설치함을 가정.  
 가능하면 yum 이나 rpm 기반으로 순정설치를 원칙으로 하고 있다.  
 
 기초 시스템,PHP 관련 설치
@@ -25,6 +26,10 @@ Docker를 사용하여 개발에 필요한 설정을 하려고 했다.
     yum -y update # 패키지 epel 업그레이드
     rpm -ivh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
     yum --enablerepo=remi update remi-release
+    vi /etc/selinux/config
+    #SELINUX=disabled 개발편의를 위해서 변경한다.
+    systemctl disable firewalld # 개발편의를 위해서 방화벽을 끈다.
+    reboot
 
 ### PHP 7.1 설치
     yum --enablerepo=remi-php71 install -y php php-common php-fpm php-mbstring php-xml php-mcrypt php-mysql
