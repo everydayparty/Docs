@@ -3,15 +3,15 @@ CentOS 7.3 October CMS 설치
 
 시작하며
 --------
-Docker를 사용하여 개발에 필요한 설정을 하려고 했다.
-필요한게 October CMS라서 Docker허브에서 누군가가 만들어 놓은 이미지를 다운받았다.
-로컬 볼륨도 설정 가능해서 잘 되는가 싶었는데, artisan 관련 오류도 나고 정상적으로 실행이 안되었다.
-도커를 이용해서 개발환경을 꾸미는 목적이 뭔가 로컬 환경을 클린하게 유지하기 위함인데, 로컬에다가 php관련세팅을 한다는게 맞지 않아서 어떻게 할까 고민되었다.
-게다가 로컬에 설치한다고 해도 windows용 PHP가 정상 동작한다는 보장도 없다.
-어차피 지금은 소스보기와 리서치 작업 정도만 할꺼라서 로컬 볼륨에 마운트 안하고 그냥 진행해도 되지만 일단 나중을 위해서 CentOS 기반으로 작업 관련 설치를 진행할까 한다.
-처음엔 도커 이미지 기반으로 설치하려고 했으나 시스템상 맞지 않는 부분이 있어서 계획을 변경하여 리눅스 가상머신에 centos 설치하고 진행하기로 했다.
-웹서버, PHP, Laravel, MySQL, October CMS 등을 설치예정이다
-가능하면 yum 이나 rpm 기반으로 순정설치를 원칙으로 하고 있다
+Docker를 사용하여 개발에 필요한 설정을 하려고 했다.  
+필요한게 October CMS라서 Docker허브에서 누군가가 만들어 놓은 이미지를 다운받았다.  
+로컬 볼륨도 설정 가능해서 잘 되는가 싶었는데, artisan 관련 오류도 나고 정상적으로 실행이 안되었다.  
+도커를 이용해서 개발환경을 꾸미는 목적이 뭔가 로컬 환경을 클린하게 유지하기 위함인데, 로컬에다가 php관련세팅을 한다는게 맞지 않아서 어떻게 할까 고민되었다.  
+게다가 로컬에 설치한다고 해도 windows용 PHP가 정상 동작한다는 보장도 없다.  
+어차피 지금은 소스보기와 리서치 작업 정도만 할꺼라서 로컬 볼륨에 마운트 안하고 그냥 진행해도 되지만 일단 나중을 위해서 CentOS 기반으로 작업 관련 설치를 진행할까 한다.  
+처음엔 도커 이미지 기반으로 설치하려고 했으나 시스템상 맞지 않는 부분이 있어서 계획을 변경하여 리눅스 가상머신에 centos 설치하고 진행하기로 했다.  
+웹서버, PHP, Laravel, MySQL, October CMS 등을 설치예정이다.  
+가능하면 yum 이나 rpm 기반으로 순정설치를 원칙으로 하고 있다.  
 
 기초 시스템,PHP 관련 설치
 ------------
@@ -46,8 +46,8 @@ Docker를 사용하여 개발에 필요한 설정을 하려고 했다.
     #listen.mode = 0660
 
 ### nginx 설치및 세팅
-yum 으로 nginx 사용해서 패키지 설치한다
-/etc/nginx/conf.d/cms.conf에 아래 내용을 추가한다.
+yum 으로 nginx 사용해서 패키지 설치한다.  
+/etc/nginx/conf.d/cms.conf에 아래 내용을 추가한다.  
 
     server {
         listen       80;
@@ -58,7 +58,7 @@ yum 으로 nginx 사용해서 패키지 설치한다
         include /etc/nginx/default.d/*.conf;
     }
 
-/etc/nginx/default.d/php.conf에 아래 내용을 추가한다
+/etc/nginx/default.d/php.conf에 아래 내용을 추가한다.  
 
     location ~ \.php$ {
         if (!-f $request_filename) {
@@ -71,7 +71,7 @@ yum 으로 nginx 사용해서 패키지 설치한다
         include        fastcgi_params;
     }
 
-/var/www/html/index.php 파일에 php코드를 넣어서 테스트 해본다.
+/var/www/html/index.php 파일에 php코드를 넣어서 테스트 해본다.  
 
 ### MariaDB 설치
 
@@ -79,8 +79,9 @@ yum 으로 nginx 사용해서 패키지 설치한다
     systemctl start mariadb
     mysql_secure_installation # 적당한 값으로 설정하고 pw설정
 
-아래 항목의 값들로 /etc/my.cnf.d/ 아래 파일들을 수정한다
-systemctl restart mariadb로 재시작후 cli 접속 show variables like 'c%'; 명령으로 확인
+아래 항목의 값들로 /etc/my.cnf.d/ 아래 파일들을 수정한다.  
+systemctl restart mariadb로 재시작  
+cli 접속 show variables like 'c%'; 명령으로 확인
 
     [mysqld]
     port=3306
