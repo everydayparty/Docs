@@ -13,6 +13,20 @@ compose를 사용하면 좋겠지만.. 일단 그거는 그거대로 연구가 �
 웹서버, PHP, Laravel, October CMS 순으로 설정예정이다.
 그리고 가능하면 yum 이나 rpm 기반으로 순정설치하고 별도로 설치하는것은 피할 예정이다.
 
-기초 시스템 관련 설치
+기초 시스템,PHP 관련 설치
 ------------
-### epel-release 설치
+### repo 설치/PHP 7.1 설치
+
+    yum install epel-release
+    # 결과에서 아래의 오류 발생하면
+    #Loaded plugins: fastestmirror, ovl
+    #Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=container error was 14: curl#6 - "Could not resolve host: mirrorlist.centos.org; Unknown error"
+    # /etc/resolv.conf 에서 nameserver 8.8.8.8 로 수정후 재실행
+    yum update # 패키지 epel 업그레이드
+    rpm -ivh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    yum --enablerepo=remi update remi-release
+    yum update
+    yum --enablerepo=remi-php71 install -y php php-common php-fpm php-mysql
+
+### nginx 설치및 세팅
+    yum install nginx
