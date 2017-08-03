@@ -32,7 +32,7 @@ root계정으로 설치함을 가정.
     reboot
 
 ### PHP 7.1 설치
-    yum --enablerepo=remi-php71 install -y php php-common php-fpm php-mbstring php-xml php-mcrypt php-mysql
+    yum --enablerepo=remi-php71 install -y php php-common php-fpm php-mbstring php-xml php-mcrypt php-zip php-mysql
     systemctl start php-fpm
     systemctl enable php-fpm
     # systemctl status php-fpm 확인
@@ -82,7 +82,7 @@ yum 으로 nginx 사용해서 패키지 설치한다.
 
     yum -y install mariadb-server mariadb
     systemctl start mariadb
-    mysql_secure_installation # 적당한 값으로 설정하고 pw설정
+    mysql_secure_installation # 적당한 값으로.. pw는 없이
 
 아래 항목의 값들로 /etc/my.cnf.d/ 아래 파일들을 수정한다.  
 systemctl restart mariadb로 재시작  
@@ -106,7 +106,7 @@ cli 접속 show variables like 'c%'; 명령으로 확인
     [mysql]
     default-character-set = utf8
 
-### Laravel 프레임워크 / October CMS 설치
+### Laravel 프레임워크
 
     cd /root
     curl -sS https://getcomposer.org/installer | php
@@ -117,5 +117,8 @@ cli 접속 show variables like 'c%'; 명령으로 확인
     git clone https://github.com/laravel/laravel.git
     cd laravel
     composer install
+
+### October CMS 설치/설정
     cd /var/www/html
-    composer create-project october/october ./
+    curl -s https://octobercms.com/api/installer | php
+    php artisan october:install # 이후에 입력하는 값들은 적당히
