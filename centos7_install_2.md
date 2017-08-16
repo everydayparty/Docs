@@ -32,7 +32,7 @@ root계정으로 설치함을 가정.
     reboot
 
 ### PHP 7.1 설치
-    yum --enablerepo=remi-php71 install -y php php-common php-fpm php-mbstring php-xml php-mcrypt php-zip php-mysql
+    yum --enablerepo=remi-php71 install -y php php-common php-fpm php-mbstring php-xml php-mcrypt php-zip php-mysql php-gd
     systemctl start php-fpm
     systemctl enable php-fpm
     # systemctl status php-fpm 확인
