@@ -106,18 +106,6 @@ cli 접속 show variables like 'c%'; 명령으로 확인
     [mysql]
     default-character-set = utf8
 
-### Laravel 프레임워크
-
-    cd /root
-    curl -sS https://getcomposer.org/installer | php
-    mv composer.phar /usr/bin/composer
-    chmod +x /usr/bin/composer
-    yum -y install git
-    cd /var/www
-    git clone https://github.com/laravel/laravel.git
-    cd laravel
-    composer install
-
 ### October CMS 설치/설정
     cd /var/www/html
     curl -s https://octobercms.com/api/installer | php
