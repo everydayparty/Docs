@@ -58,14 +58,16 @@ cd /var/www/
 sudo wget https://wordpress.org/latest.tar.gz #다운받아서
 sudo tar -xzvf latest.tar.gz #압축풀고
 sudo rm -rf ./latest.tar.gz #삭제
-sudo chown -R www-data. ./wordpress # 파일소유 권한 변경하고
-sudo chmod -R 755 ./wordpress # 폴더 접근 권한도 수정하고
+sudo usermod -aG www-data $USER # www-data 그룹에 user추가
+sudo chown -R $USER.www-data ./wordpress # 파일소유 권한 변경하고
+sudo chmod -R 775 ./wordpress # 폴더 접근 권한도 수정하고
 
 ```
 
 ## 서버 설정 작성및 변경
 
 /etc/hosts 파일에 다음 한줄 추가한다.
+
 ```
 127.0.1.1       wpdev.local www.wpdev.local
 ```
@@ -107,7 +109,9 @@ server {
 }
 
 ```
+
 사이트를 활성화 해준다.
+
 ```bash
 sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/site-enabled/default # 기본 사이트 비활성화
@@ -115,8 +119,25 @@ sudo systemctl restart nginx # nginx재시작
 ```
 
 ## 사이트 설정
+
 http://wpdev.local 사이트에 접속해보면 설정화면으로 들어갈 수 있다.
 여기서 아까 생성한 DB와 유저계정 등을 입력하고 설정하면 된다.
+
+## GIT 설치및 레포지토리 PUSH하기
+
+git에 미리 master 브랜치를 생성하고 pull 받는 기준으로 한다. url은 $GITURL변수로 표현한다.
+```bash
+sudo apt install -y git
+cd /var/www/wordpress
+git init
+git remote add --track master origin $GITURL
+git config user.name '이름'
+git config user.email '이메일@도메인'
+git config credential.helper store # 이건 비번을 저장해놓으라는거
+git pull # 비번입력하라면 해주고
+git push # 비번입력없이 잘 받아지는지 확인하고
+```
+
 
 # 마치며
 뭐 사실 간단하게 적긴 했는데.. 나도 그냥 구글링하면서 검색하면서 쓴거라 뭐 실제로 하면서 트러블 슈팅같은게 필요하거나 환경이 약간달라서 안되는게 있을 수도 있다.
